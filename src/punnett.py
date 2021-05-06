@@ -41,7 +41,11 @@ def simulate(children: int, color1: str, color2: str):
     punnett_pairs1 = punnett_pairs(parent1)
     punnett_pairs2 = punnett_pairs(parent2)
 
-    for i in range(1, children + 1):
-        child = crossover(random.choice(punnett_pairs1),
+    children = [crossover(random.choirs(punnett_pairs1),
                           random.choice(punnett_pairs2))
-        print(f"Child {i} has {classify(child)} eyes: {child}")
+                for _ in range(0, children)]
+
+    for i, child in enumerate(children):
+        print(f"Child {i+1} has {classify(child)} eyes: {child}")
+
+    return children
