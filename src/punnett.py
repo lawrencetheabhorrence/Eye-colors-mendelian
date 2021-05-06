@@ -1,10 +1,8 @@
 import random
-
-
-def generate_parent():
-    parent = [random.choice(['B', 'b']), random.choice(['B', 'b']),
-              random.choice(['G', 'g']), random.choice(['G', 'g'])]
-    return "".join(sorted(parent[0:2]) + sorted(parent[2:]))
+from .generation import generate_blue
+from .generation import generate_brown
+from .generation import generate_green
+from .generation import generate_parent
 
 
 def punnett_pairs(parent: str):
@@ -25,8 +23,19 @@ def classify(chromosome: str):
     return "Blue"
 
 
-def simulate(children: int):
-    parent1, parent2 = generate_parent(), generate_parent()
+def generate_by_color(color: str):
+    if color == "Green":
+        return generate_green()
+    if color == "Brown":
+        return generate_brown()
+    if color == "Blue":
+        return generate_blue
+    return generate_parent()
+
+
+def simulate(children: int, color1: str, color2: str):
+    parent1 = generate_by_color(color1)
+    parent2 = generate_by_color(color2)
     print(f"Parent 1 has {classify(parent1)} eyes: {parent1}")
     print(f"Parent 2 has {classify(parent2)} eyes: {parent2}")
     punnett_pairs1 = punnett_pairs(parent1)
@@ -36,13 +45,3 @@ def simulate(children: int):
         child = crossover(random.choice(punnett_pairs1),
                           random.choice(punnett_pairs2))
         print(f"Child {i} has {classify(child)} eyes: {child}")
-
-
-def main():
-    while(True):
-        children = int(input("Number of children to generate (any nonpositive number/input to exit) : "))
-        if not children > 0: break
-        simulate(children)
-
-
-main()
