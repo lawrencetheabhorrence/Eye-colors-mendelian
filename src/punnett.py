@@ -1,8 +1,6 @@
 import random
-from .generation import generate_blue
-from .generation import generate_brown
-from .generation import generate_green
-from .generation import generate_parent
+from generation import generate_blue, generate_brown, \
+                       generate_green, generate_parent
 
 
 def punnett_pairs(parent: str):
@@ -41,7 +39,7 @@ def simulate(children: int, color1: str, color2: str):
     punnett_pairs1 = punnett_pairs(parent1)
     punnett_pairs2 = punnett_pairs(parent2)
 
-    children = [crossover(random.choirs(punnett_pairs1),
+    children = [crossover(random.choice(punnett_pairs1),
                           random.choice(punnett_pairs2))
                 for _ in range(0, children)]
 

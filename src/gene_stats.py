@@ -1,14 +1,15 @@
-from typing import Any, List
-from .punnett import classify
+from typing import List
+from punnett import classify
 
 
-def ratio(values: List[Any]):
+def ratio(values: List[str]):
     uniques = set(values)
-    return ':'.join([values.count(v) for v in uniques])
+    counts = [values.count(v) for v in uniques]
+    return ':'.join(map(str, counts))
 
 
 def phenotype_ratio(children: List[str]):
-    children_color = map(classify, children)
+    children_color = list(map(classify, children))
     return ratio(children_color)
 
 

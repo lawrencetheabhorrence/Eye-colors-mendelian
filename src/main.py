@@ -1,10 +1,10 @@
 import sys
-from typing import Callable
-from .punnett import simulate
-from .gene_stats import phenotype_ratio, genotype_ratio
+from typing import Callable, List
+from punnett import simulate
+from gene_stats import phenotype_ratio, genotype_ratio
 
 
-def input_parameter(prompt: str, valid_values: list[str]):
+def input_parameter(prompt: str, valid_values: List[str]):
     while True:
         answer = input(prompt)
         if answer in valid_values:
@@ -42,10 +42,13 @@ def main_input():
             choices[show_g_ratio], choices[show_p_ratio])
 
 
-def main():
+def __main__():
     no_of_children, p1, p2, show_gr, show_pr = main_input()
     children = simulate(no_of_children, p1, p2)
-    if (show_gr):
-        print(genotype_ratio(children))
-    if (show_pr):
-        print(phenotype_ratio(children))
+    if show_gr:
+        print("Genotype ratio:", genotype_ratio(children))
+    if show_pr:
+        print("Phenotype ratio:", phenotype_ratio(children))
+
+
+__main__()
