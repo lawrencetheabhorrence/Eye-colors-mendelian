@@ -4,7 +4,7 @@ from punnett import classify
 
 def ratio(values: List[str]):
     uniques = set(values)
-    counts = [values.count(v) for v in uniques]
+    counts = (values.count(v) for v in uniques)
     return ':'.join(map(str, counts))
 
 
